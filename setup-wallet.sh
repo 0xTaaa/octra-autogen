@@ -4,10 +4,6 @@
 echo "Installing Bun..."
 curl -fsSL https://bun.sh/install | bash
 
-# Restart shell
-echo "Restarting shell..."
-exec $SHELL
-
 # Cek versi bun
 echo "Checking Bun version..."
 bun --version
