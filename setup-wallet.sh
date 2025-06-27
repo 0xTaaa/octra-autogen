@@ -1,12 +1,20 @@
 #!/bin/bash
 
-# Cek apakah bun sudah terinstall
+set -e  # Stop script kalau ada error
+
+# Cek apakah Bun sudah terinstall
 if command -v bun &> /dev/null; then
     echo "✅ Bun sudah terinstall, skip install."
 else
     echo "🔧 Installing Bun..."
     curl -fsSL https://bun.sh/install | bash
+
+    # Tambah PATH sementara untuk sesi ini
+    export PATH="$HOME/.bun/bin:$PATH"
 fi
+
+# Pastikan PATH tetap aman untuk sesi ini
+export PATH="$HOME/.bun/bin:$PATH"
 
 # Cek versi bun
 echo "🔍 Mengecek versi Bun..."
