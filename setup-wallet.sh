@@ -1,32 +1,35 @@
 #!/bin/bash
 
-# Install Bun
-echo "Installing Bun..."
-curl -fsSL https://bun.sh/install | bash
+# Cek apakah bun sudah terinstall
+if command -v bun &> /dev/null; then
+    echo "✅ Bun sudah terinstall, skip install."
+else
+    echo "🔧 Installing Bun..."
+    curl -fsSL https://bun.sh/install | bash
+fi
 
 # Cek versi bun
-echo "Checking Bun version..."
+echo "🔍 Mengecek versi Bun..."
 bun --version
 
 # Buka port 8888
-echo "Updating apt & installing ufw..."
+echo "🌐 Mengatur firewall..."
 sudo apt update && sudo apt install ufw -y
-echo "Allowing port 8888..."
 sudo ufw allow 8888
 
-# Clone repo
-echo "Cloning wallet-gen repo..."
+# Clone repo wallet-gen
+echo "📦 Cloning repository wallet-gen..."
 git clone https://github.com/octra-labs/wallet-gen
-cd wallet-gen || { echo "Failed to cd into wallet-gen"; exit 1; }
+cd wallet-gen || { echo "❌ Gagal masuk ke folder wallet-gen"; exit 1; }
 
 # Install dependencies
-echo "Installing dependencies..."
+echo "📁 Menginstall dependencies..."
 bun install
 
 # Build project
-echo "Building project..."
+echo "⚙️  Build project..."
 bun run build
 
 # Jalankan
-echo "Starting wallet generator..."
+echo "🚀 Menjalankan wallet generator..."
 bun start
